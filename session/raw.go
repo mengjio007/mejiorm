@@ -1,21 +1,26 @@
 package session
 
 import (
+	"crawl/dbsupport"
 	"crawl/log"
+	"crawl/schema"
 	"database/sql"
 	"strings"
 )
 
 type Session struct {
 	db      *sql.DB
+	Dbtype  dbsupport.DbType
+	reftable *schema.Schema
 	sql     strings.Builder
 	sqlVars []interface{}
 }
 
 // 建立连接
-func New(db *sql.DB) *Session {
+func New(db *sql.DB,dbtype dbsupport.DbType) *Session {
 	return &Session{
 		db: db,
+		Dbtype:dbtype,
 	}
 }
 
